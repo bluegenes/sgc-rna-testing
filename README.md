@@ -23,6 +23,7 @@ git clone https://github.com/bluegenes/sgc-rna-testing
 
 Download the reads:
 ```
+cd sgc-rna-testing
 snakemake -s download_ktrim.snakefile
 ```
 
