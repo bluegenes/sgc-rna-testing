@@ -26,8 +26,8 @@ Download the reads:
 snakemake -s download_ktrim.snakefile
 ```
 
-build & search with ref, reads 
+build & search 
 
 ```
-snakemake -s build_search.snakefile ref reads 
+snakemake -s joint_catlas.snakefile joint_catlas donuts
 ```
