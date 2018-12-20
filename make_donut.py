@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 """
-from: https://github.com/dib-lab/2017-paper-gather/blob/sub_ihmp/ihmp/scripts/make_donut.py
+slightly modified from: https://github.com/dib-lab/2017-paper-gather/blob/sub_ihmp/ihmp/scripts/make_donut.py
 Subtract all input sequences that have greater than some threshold overlap
 with a collection of other sequences.
 
@@ -25,6 +25,7 @@ def main(argv=sys.argv[1:]):
     p = argparse.ArgumentParser()
     p.add_argument('--query', nargs='+', action='append')
     p.add_argument('--subtract', nargs='+', action='append')
+    p.add_argument('--outdir', default = '')
     p.add_argument('-o', '--output-suffix')
     p.add_argument('--threshold', type=float, default=DEFAULT_THRESHOLD)
     p.add_argument('-k', '--ksize', type=int, default=31)
@@ -57,7 +58,8 @@ def main(argv=sys.argv[1:]):
 
     # next, iterate over each input and do subtract
     for queryfile in args.query:
-        output = os.path.basename(queryfile) + output_suffix
+        #output = os.path.basename(queryfile) + output_suffix
+        output = os.path.join(args.outdir, os.path.basename(queryfile) + output_suffix)
         print('subtracting from {} -> {}'.format(queryfile, output))
         outfp = open(output, 'wt')
         n = 0

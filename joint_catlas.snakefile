@@ -27,6 +27,7 @@ config['catlas_base'] = config['catlas_base'] + '_joint'
 BASE = config['catlas_base']
 sgc_config_file = '.yeast_minijoint.yaml'
 write_yaml(config, sgc_config_file)
+SEARCH_DIR = catlas_search_dir(sgc_config_file)
 
 rule joint_catlas:
     input: catlas_extract(sgc_config_file),
@@ -68,7 +69,7 @@ rule subtract_refmatches:
     output: [join(catlas_search_dir(sgc_config_file), s + '.khmer.fq.gz_ref.donut.fa') for s in SAMPLE_NAMES] #SAMPLES['sample_alias'].tolist()]
     shell:
         #"{sys.executable} -m spacegraphcats.search.make_donut --query {input.reads} --subtract {input.ref} -k 31 -o '_ref.donut.fa' "
-        "{sys.executable} make_donut.py --query {input.reads} --subtract {input.ref} -k 31 -o '_ref.donut.fa' "
+        "{sys.executable} make_donut.py --query {input.reads} --subtract {input.ref} -k 31 -o '_ref.donut.fa' --outdir {SEARCH_DIR} "
 
 rule extract_unassembled:
     input: 
@@ -76,6 +77,6 @@ rule extract_unassembled:
         reads = config['reads'],
     output: join(catlas_search_dir(sgc_config_file), 'unassembled.fa')
     shell:
-        "{sys.executable} -m spacegraphcats.search.extract_unassembled_nodes --catlas_prefix {BASE} --query {input.reads} --output {output} " 
+        "{sys.executable} -m spacegraphcats.search.extract_unassembled_nodes {BASE} {input.reads} {output} " 
 
 
