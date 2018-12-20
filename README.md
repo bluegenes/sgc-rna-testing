@@ -5,7 +5,13 @@ Subset of Wildtype and Mutant (SNF2) Saccharomyces cerevisiae from [Schurch et a
 
 Install snakemake and spacegraphcats:
 ```
-pip install spacegraphcats snakemake
+conda create -n spaceCats
+source activate spaceCats
+pip install Cython
+pip install snakemake
+pip install https://github.com/dib-lab/pybbhash/archive/spacegraphcats.zip
+pip install https://github.com/dib-lab/khmer/archive/master.zip
+pip install git+https://github.com/dib-lab/sourmash@master#egg=sourmash
 ```
 
 Grab this repo:
