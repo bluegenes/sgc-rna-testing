@@ -1,0 +1,11 @@
+
+catlas_base: 'yeast_mini'
+
+ksize: 31
+
+radius: 1
+
+samples: 'mini_samples.tsv'
+
+searchquick: ''
+

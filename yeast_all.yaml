@@ -1,0 +1,9 @@
+
+catlas_base: 'yeast'
+
+ksize: 31
+
+radius: 1
+
+samples: 'sample_info.tsv'
+
