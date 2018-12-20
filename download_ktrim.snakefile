@@ -19,8 +19,7 @@ rule download:
 
 # download S. cerevisiae RNA reference
 rule download_rna_reference:
-    output:
-        "data/GCF_000146045.2_R64_rna.fna.gz"
+    output: REF 
     shell:
     	#"curl -o {output} -L 'https://osf.io/97vzd/?action=download'"
     	"curl -o {output} -L 'ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/146/045/GCF_000146045.2_R64/GCF_000146045.2_R64_rna.fna.gz'"

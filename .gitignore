@@ -5,4 +5,5 @@ data/*
 yeast_mini_reads/
 *search_oh0/
 *_k*_r*
-
+.*.yaml
+dag.svg
