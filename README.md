@@ -12,6 +12,8 @@ pip install snakemake
 pip install https://github.com/dib-lab/pybbhash/archive/spacegraphcats.zip
 pip install https://github.com/dib-lab/khmer/archive/master.zip
 pip install git+https://github.com/dib-lab/sourmash@master#egg=sourmash
+
+pip install spacegraphcats
 ```
 
 Grab this repo:
