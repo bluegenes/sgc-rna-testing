@@ -1,6 +1,6 @@
 # Repo for Spacegraphcats testing with yeast samples
 
-Subset of Wildtype and Mutant (SNF2) Saccharomyces cerevisiae from Schurch et al., 2016
+Subset of Wildtype and Mutant (SNF2) Saccharomyces cerevisiae from [Schurch et al., 2016](http://rnajournal.cshlp.org/content/early/2016/03/30/rna.053959.115.full.pdf)
 
 
 Install snakemake and spacegraphcats:
@@ -18,7 +18,7 @@ Download the reads:
 snakemake -s download_ktrim.snakefile
 ```
 
-Build cDBG, CAtlas from the reference trancriptome and chosed reads
+build & search with ref, reads 
 
 ```
 snakemake -s build_search.snakefile ref reads 
