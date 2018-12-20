@@ -1,0 +1,8 @@
+.snakemake/
+bcalm.*.inputlist.txt
+bcalm_to_gxt.log
+data/*
+yeast_mini_reads/
+*search_oh0/
+*_k*_r*
+

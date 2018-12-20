@@ -1,0 +1,61 @@
+# initial download and trimming
+import os
+
+from snakemake.remote import FTP
+FTP = FTP.RemoteProvider()
+
+data_dir='data'
+
+targets = []
+kmer_targets = []
+
+#with open('SRA_accessions.txt', 'r') as f:
+with open('SRA_acc_2.txt', 'r') as f:
+#with open('SRA_acc_all.txt', 'r') as f:
+    for line in f:
+        targ = line.strip() + '.fq.gz'
+        kmer_targ = line.strip() + '.khmer.fq.gz'
+        targets+=[os.path.join(data_dir, targ)]
+        kmer_targets+=[os.path.join(data_dir, kmer_targ)]
+
+wildcard_constraints:
+    accession="ERR\d+"
+
+rule all:
+    input: kmer_targets
+
+rule get_fq:
+    input: lambda wildcards: FTP.remote(f"ftp.sra.ebi.ac.uk/vol1/fastq/{wildcards.accession[:6]}/{wildcards.accession}/{wildcards.accession}.fastq.gz", static=True, keep_local=True)
+    output: os.path.join(data_dir,"{accession}.fq.gz")
+    shell: "mv {input} {output}"
+
+rule trimmomatic:
+    input: os.path.join(data_dir,"{accession}.fq.gz")
+    output: os.path.join(data_dir,"{accession}.trim.fq.gz")
+    params:
+        trimmer=["ILLUMINACLIP:TruSeq3-SE.fa:2:40:15 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:15 MINLEN:35"],
+        # optional compression levels from -0 to -9 and -11
+        compression_level="-9"
+    log: 'logs/{accession}_trimmomatic.log'
+    threads:16
+    wrapper: "0.30.0/bio/trimmomatic/se"
+
+rule khmer_trim:
+    input: os.path.join(data_dir,"{accession}.trim.fq.gz")
+    output: os.path.join(data_dir,"{accession}.khmer.fq.gz")
+    message:
+        """--- khmer trimming of low-abundance kmers and digital normalization ---"""
+    params:
+        k = '20',
+        Z = '18', #20
+        C = '3', #4
+        memory = '10e9',#60e9
+        cov = '20',
+        extra = ''
+    threads: 2
+    log: 'logs/{accession}_khmer.log'
+    conda:
+        'khmer-env.yaml'
+    shell:
+           "(trim-low-abund.py {input} -V -k {params.k} -Z {params.Z} -C {params.C} -o {output} "
+           " -M {params.memory} --diginorm --diginorm-coverage={params.cov} --gzip ) "
