@@ -7,8 +7,12 @@ radius: 1
 
 samples: 'mini_samples.tsv'
 
-search:
+reference:
+ - 'data/GCF_000146045.2_R64_rna.fna.gz'
+
+genes:
  - 'data/homocitrate_synthase.fa'
+ - 'data/HSP70.fasta'
 
 searchquick: ''
 
