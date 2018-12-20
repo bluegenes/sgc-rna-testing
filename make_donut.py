@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 """
+from: https://github.com/dib-lab/2017-paper-gather/blob/sub_ihmp/ihmp/scripts/make_donut.py
 Subtract all input sequences that have greater than some threshold overlap
 with a collection of other sequences.
 
